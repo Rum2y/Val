@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
 
 function App() {
   const [message, setMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [shake, setShake] = useState(false);
+  const audioRef = useRef(null);
 
   const handleYesClick = () => {
     setMessage(
       "Happy Valentine's Day, mi amor!\n\nI truly appreciate having you as my girl—your love, kindness, and compassion mean the world to me. You are my source of comfort when I’m down, the reason I smile every day, and your beauty continues to amaze me.\n\nI love you to the moon and back, and love you the most in the universe.\n\nHappy Valentine's Day, Dami. ❤️"
     );
     setShowPopup(true);
+    if (audioRef.current) {
+      audioRef.current.play(); // Play the song when button is clicked
+    }
   };
 
   const handleNoClick = () => {
@@ -60,6 +64,9 @@ function App() {
           No
         </button>
       </div>
+
+      {/* Audio Element (Hidden) */}
+      <audio ref={audioRef} src="/song/dist.mp3" preload="auto" />
 
       {/* Popup Message */}
       {showPopup && (
